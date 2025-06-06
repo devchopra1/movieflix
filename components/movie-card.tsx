@@ -1,31 +1,40 @@
+"use client"
+
 import Link from "next/link"
-import { type Movie, getImageUrl } from "@/lib/tmdb"
+import { Card, CardContent } from "@/components/ui/card"
+import { getImageUrl, formatRating } from "@/lib/utils"
+import { Star } from "lucide-react"
+import type { Movie } from "@/lib/mock-data"
 
 interface MovieCardProps {
   movie: Movie
+  showRating?: boolean
 }
 
-export function MovieCard({ movie }: MovieCardProps) {
+export function MovieCard({ movie, showRating = true }: MovieCardProps) {
   return (
-    <Link href={`/movie/${movie.id}`}>
-      <div className="group relative overflow-hidden rounded-lg transition-all hover:scale-105">
-        <img
-          src={getImageUrl(movie.poster_path, "w500") || "/placeholder.svg"}
-          alt={movie.title}
-          className="h-[300px] w-full object-cover"
-          loading="lazy"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
-        <div className="absolute bottom-0 left-0 right-0 p-4 opacity-0 transition-opacity group-hover:opacity-100">
-          <h3 className="text-lg font-semibold text-white">{movie.title}</h3>
-          <div className="mt-1 flex items-center gap-2">
-            <span className="rounded bg-yellow-500 px-1.5 py-0.5 text-xs font-medium text-black">
-              {movie.vote_average.toFixed(1)}
-            </span>
-            <span className="text-sm text-gray-300">{new Date(movie.release_date).getFullYear()}</span>
-          </div>
+    <Link href={`/movie/${movie.id}`} className="group">
+      <Card className="overflow-hidden bg-transparent border-0 transition-all hover:scale-105">
+        <div className="relative aspect-[2/3] overflow-hidden rounded-md">
+          <img
+            src={getImageUrl(movie.poster_path) || "/placeholder.svg"}
+            alt={movie.title}
+            className="object-cover w-full h-full"
+            width={300}
+            height={450}
+          />
+          {showRating && (
+            <div className="absolute bottom-2 left-2 bg-black/70 text-white px-2 py-1 rounded-md flex items-center text-sm">
+              <Star className="w-4 h-4 mr-1 text-yellow-400" />
+              <span>{formatRating(movie.vote_average)}</span>
+            </div>
+          )}
         </div>
-      </div>
+        <CardContent className="p-2">
+          <h3 className="font-medium text-sm line-clamp-1">{movie.title}</h3>
+          <p className="text-xs text-muted-foreground">{new Date(movie.release_date).getFullYear()}</p>
+        </CardContent>
+      </Card>
     </Link>
   )
 }

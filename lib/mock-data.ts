@@ -107,74 +107,6 @@ export const mockMovies: Movie[] = [
     video: false,
     vote_count: 31917,
   },
-  {
-    id: 497,
-    title: "The Green Mile",
-    overview:
-      "A supernatural tale set on death row in a Southern prison, where gentle giant John Coffey possesses the mysterious power to heal people's ailments.",
-    poster_path: "/8VG8fDNiy50H4FedGwdSVUPoaJe.jpg",
-    backdrop_path: "/l6hQWH9eDksNJNiXWYRkWqikOdu.jpg",
-    release_date: "1999-12-10",
-    vote_average: 8.5,
-    genre_ids: [14, 18, 80],
-    adult: false,
-    original_language: "en",
-    original_title: "The Green Mile",
-    popularity: 97.152,
-    video: false,
-    vote_count: 15220,
-  },
-  {
-    id: 389,
-    title: "12 Angry Men",
-    overview:
-      "The defense and the prosecution have rested and the jury is filing into the jury room to decide if a young Spanish-American is guilty or innocent of murdering his father.",
-    poster_path: "/ow3wq89wM8qd5X7hWKxiRfsFf9C.jpg",
-    backdrop_path: "/qqHQsStV6exghCM7zbObuYBiYxw.jpg",
-    release_date: "1957-04-10",
-    vote_average: 8.5,
-    genre_ids: [18],
-    adult: false,
-    original_language: "en",
-    original_title: "12 Angry Men",
-    popularity: 41.902,
-    video: false,
-    vote_count: 7806,
-  },
-  {
-    id: 27205,
-    title: "Inception",
-    overview:
-      "Cobb, a skilled thief who commits corporate espionage by infiltrating the subconscious of his targets is offered a chance to regain his old life as payment for a task considered to be impossible.",
-    poster_path: "/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",
-    backdrop_path: "/s3TBrRGB1iav7gFOCNx3H31MoES.jpg",
-    release_date: "2010-07-15",
-    vote_average: 8.8,
-    genre_ids: [28, 878, 53],
-    adult: false,
-    original_language: "en",
-    original_title: "Inception",
-    popularity: 148.373,
-    video: false,
-    vote_count: 35053,
-  },
-  {
-    id: 278,
-    title: "The Shawshank Redemption",
-    overview:
-      "Framed in the 1940s for the double murder of his wife and her lover, upstanding banker Andy Dufresne begins a new life at the Shawshank prison.",
-    poster_path: "/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg",
-    backdrop_path: "/iNh3BivHyg5sQRPP1KOkzguEX0H.jpg",
-    release_date: "1994-09-23",
-    vote_average: 9.3,
-    genre_ids: [18, 80],
-    adult: false,
-    original_language: "en",
-    original_title: "The Shawshank Redemption",
-    popularity: 132.357,
-    video: false,
-    vote_count: 26280,
-  },
 ]
 
 // Export trending movies (first 4 movies)
@@ -185,7 +117,7 @@ export const mockUser: User = {
   id: "demo-user-123",
   name: "Demo User",
   email: "demo@movieflix.com",
-  image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
+  image: "/placeholder.svg?height=40&width=40",
 }
 
 // Export mock watchlist
@@ -236,14 +168,6 @@ export const mockViewingHistory: ViewingHistory[] = [
     progress: 5400,
     completed: true,
   },
-  {
-    id: "h4",
-    userId: "demo-user-123",
-    movieId: 155,
-    watchedAt: "2024-01-12T18:45:00Z",
-    progress: 7200,
-    completed: true,
-  },
 ]
 
 // Export genres
@@ -253,18 +177,7 @@ export const genres = [
   { id: 16, name: "Animation" },
   { id: 35, name: "Comedy" },
   { id: 80, name: "Crime" },
-  { id: 99, name: "Documentary" },
   { id: 18, name: "Drama" },
-  { id: 10751, name: "Family" },
   { id: 14, name: "Fantasy" },
-  { id: 36, name: "History" },
-  { id: 27, name: "Horror" },
-  { id: 10402, name: "Music" },
-  { id: 9648, name: "Mystery" },
-  { id: 10749, name: "Romance" },
-  { id: 878, name: "Science Fiction" },
-  { id: 10770, name: "TV Movie" },
   { id: 53, name: "Thriller" },
-  { id: 10752, name: "War" },
-  { id: 37, name: "Western" },
 ]
