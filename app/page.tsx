@@ -1,46 +1,66 @@
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { MovieCard } from "@/components/movie-card"
-import { movies } from "@/lib/data"
 
-export default function HomePage() {
+const movies = [
+  { id: 1, title: "The Dark Knight", year: "2008", image: "/placeholder.svg?height=300&width=200&text=Movie+1" },
+  { id: 2, title: "Inception", year: "2010", image: "/placeholder.svg?height=300&width=200&text=Movie+2" },
+  { id: 3, title: "Interstellar", year: "2014", image: "/placeholder.svg?height=300&width=200&text=Movie+3" },
+  { id: 4, title: "The Matrix", year: "1999", image: "/placeholder.svg?height=300&width=200&text=Movie+4" },
+  { id: 5, title: "Pulp Fiction", year: "1994", image: "/placeholder.svg?height=300&width=200&text=Movie+5" },
+  { id: 6, title: "Fight Club", year: "1999", image: "/placeholder.svg?height=300&width=200&text=Movie+6" },
+  { id: 7, title: "Forrest Gump", year: "1994", image: "/placeholder.svg?height=300&width=200&text=Movie+7" },
+  { id: 8, title: "The Godfather", year: "1972", image: "/placeholder.svg?height=300&width=200&text=Movie+8" },
+]
+
+export default function Home() {
   return (
-    <div className="min-h-screen bg-black text-white">
-      {/* Hero Section */}
-      <div className="relative flex h-screen items-center">
-        <div className="absolute inset-0 bg-gradient-to-r from-black to-transparent"></div>
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-50"
-          style={{
-            backgroundImage: "url('/placeholder.svg?height=1080&width=1920')",
-          }}
-        ></div>
-
-        <div className="container relative z-10 mx-auto px-4">
-          <div className="max-w-2xl">
-            <h1 className="mb-4 text-4xl font-bold md:text-6xl">Welcome to MovieFlix</h1>
-            <p className="mb-8 text-xl">Discover and watch thousands of movies. Start your journey now.</p>
-            <div className="flex flex-wrap gap-4">
-              <Button size="lg">
-                <Link href="/browse">Browse Movies</Link>
-              </Button>
-              <Button variant="outline" size="lg">
-                <Link href="/trending">Trending Now</Link>
-              </Button>
-            </div>
+    <main>
+      {/* Header */}
+      <header className="header">
+        <div className="container">
+          <div className="header-content">
+            <div className="logo">MovieFlix</div>
+            <nav className="nav">
+              <Link href="/">Home</Link>
+              <Link href="/movies">Movies</Link>
+              <Link href="/trending">Trending</Link>
+            </nav>
           </div>
         </div>
-      </div>
+      </header>
+
+      {/* Hero Section */}
+      <section className="hero">
+        <div className="container">
+          <div className="hero-content">
+            <h1>Welcome to MovieFlix</h1>
+            <p>Discover and watch thousands of movies. Start your journey now.</p>
+            <Link href="/movies" className="btn">
+              Browse Movies
+            </Link>
+            <Link href="/trending" className="btn btn-outline">
+              Trending Now
+            </Link>
+          </div>
+        </div>
+      </section>
 
       {/* Movies Section */}
-      <div className="container mx-auto px-4 py-12">
-        <h2 className="mb-8 text-3xl font-bold">Popular Movies</h2>
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-          {movies.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} />
-          ))}
+      <section className="section">
+        <div className="container">
+          <h2>Popular Movies</h2>
+          <div className="movie-grid">
+            {movies.map((movie) => (
+              <div key={movie.id} className="movie-card">
+                <img src={movie.image || "/placeholder.svg"} alt={movie.title} />
+                <div className="movie-card-content">
+                  <h3>{movie.title}</h3>
+                  <p>{movie.year}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
-    </div>
+      </section>
+    </main>
   )
 }

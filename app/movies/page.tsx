@@ -1,15 +1,21 @@
 import Link from "next/link"
 
-const trendingMovies = [
-  { id: 1, title: "Avatar: The Way of Water", year: "2022", rating: "8.1" },
-  { id: 2, title: "Top Gun: Maverick", year: "2022", rating: "8.3" },
-  { id: 3, title: "Black Panther: Wakanda Forever", year: "2022", rating: "7.5" },
-  { id: 4, title: "Doctor Strange 2", year: "2022", rating: "7.8" },
-  { id: 5, title: "Thor: Love and Thunder", year: "2022", rating: "7.2" },
-  { id: 6, title: "Minions: The Rise of Gru", year: "2022", rating: "7.1" },
+const allMovies = [
+  { id: 1, title: "The Dark Knight", year: "2008", genre: "Action" },
+  { id: 2, title: "Inception", year: "2010", genre: "Sci-Fi" },
+  { id: 3, title: "Interstellar", year: "2014", genre: "Sci-Fi" },
+  { id: 4, title: "The Matrix", year: "1999", genre: "Action" },
+  { id: 5, title: "Pulp Fiction", year: "1994", genre: "Crime" },
+  { id: 6, title: "Fight Club", year: "1999", genre: "Drama" },
+  { id: 7, title: "Forrest Gump", year: "1994", genre: "Drama" },
+  { id: 8, title: "The Godfather", year: "1972", genre: "Crime" },
+  { id: 9, title: "Goodfellas", year: "1990", genre: "Crime" },
+  { id: 10, title: "The Shawshank Redemption", year: "1994", genre: "Drama" },
+  { id: 11, title: "Schindler's List", year: "1993", genre: "Drama" },
+  { id: 12, title: "12 Angry Men", year: "1957", genre: "Drama" },
 ]
 
-export default function TrendingPage() {
+export default function MoviesPage() {
   return (
     <main style={{ paddingTop: "80px" }}>
       {/* Header */}
@@ -30,9 +36,9 @@ export default function TrendingPage() {
 
       <section className="section">
         <div className="container">
-          <h1>Trending Movies</h1>
+          <h1>All Movies</h1>
           <div className="movie-grid">
-            {trendingMovies.map((movie) => (
+            {allMovies.map((movie) => (
               <div key={movie.id} className="movie-card">
                 <img
                   src={`/placeholder.svg?height=300&width=200&text=${movie.title.replace(" ", "+")}`}
@@ -41,7 +47,7 @@ export default function TrendingPage() {
                 <div className="movie-card-content">
                   <h3>{movie.title}</h3>
                   <p>
-                    {movie.year} • ⭐ {movie.rating}
+                    {movie.year} • {movie.genre}
                   </p>
                 </div>
               </div>
