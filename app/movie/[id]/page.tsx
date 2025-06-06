@@ -5,7 +5,7 @@ import { useParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { mockMovies } from "@/lib/mock-data"
 import { getImageUrl, formatDate, formatRating } from "@/lib/utils"
-import { Star, Clock, Calendar } from "lucide-react"
+import { Star, Clock, Calendar, Play, Plus } from "lucide-react"
 import Link from "next/link"
 
 export default function MoviePage() {
@@ -91,11 +91,15 @@ export default function MoviePage() {
               </div>
             </div>
 
-            <p className="text-lg mb-6">{movie.overview}</p>
+            <p className="text-lg mb-6 text-muted-foreground">{movie.overview}</p>
 
             <div className="flex flex-wrap gap-4 mb-8">
-              <Button size="lg">Watch Now</Button>
-              <Button variant="outline" size="lg">
+              <Button size="lg" className="flex items-center gap-2">
+                <Play className="w-4 h-4" />
+                Watch Now
+              </Button>
+              <Button variant="outline" size="lg" className="flex items-center gap-2">
+                <Plus className="w-4 h-4" />
                 Add to Watchlist
               </Button>
             </div>
@@ -120,6 +124,23 @@ export default function MoviePage() {
                                 : "Other"}
                   </span>
                 ))}
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+              <div>
+                <h3 className="text-lg font-semibold mb-2">Movie Info</h3>
+                <div className="space-y-2 text-sm">
+                  <div>
+                    <span className="font-medium">Release Date:</span> {formatDate(movie.release_date)}
+                  </div>
+                  <div>
+                    <span className="font-medium">Rating:</span> {formatRating(movie.vote_average)}/10
+                  </div>
+                  <div>
+                    <span className="font-medium">Language:</span> {movie.original_language.toUpperCase()}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
