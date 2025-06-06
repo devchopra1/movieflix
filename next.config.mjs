@@ -1,8 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    serverComponentsExternalPackages: ['@prisma/client', 'bcryptjs']
-  },
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -25,15 +22,12 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'i.vimeocdn.com',
+        hostname: 'images.unsplash.com',
         port: '',
         pathname: '/**',
       }
     ],
     unoptimized: true,
-  },
-  env: {
-    SKIP_ENV_VALIDATION: process.env.SKIP_ENV_VALIDATION || '0',
   }
 }
 

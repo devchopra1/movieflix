@@ -1,18 +1,18 @@
-import { NextResponse } from "next/server"
-import { tmdbApi } from "@/lib/tmdb"
+import { type NextRequest, NextResponse } from "next/server"
+import { mockMovies } from "@/lib/mock-data"
 
-export async function GET(request: Request, { params }: { params: { id: string } }) {
-  const id = Number.parseInt(params.id)
-
-  if (isNaN(id)) {
-    return NextResponse.json({ error: "Invalid movie ID" }, { status: 400 })
-  }
-
+export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
   try {
-    const movie = await tmdbApi.getMovieDetails(id)
+    const movieId = Number.parseInt(params.id)
+    const movie = mockMovies.find((m) => m.id === movieId)
+
+    if (!movie) {
+      return NextResponse.json({ error: "Movie not found" }, { status: 404 })
+    }
+
     return NextResponse.json(movie)
   } catch (error) {
-    console.error(`Error fetching movie with ID ${id}:`, error)
-    return NextResponse.json({ error: "Failed to fetch movie details" }, { status: 500 })
+    console.error("Error fetching movie:", error)
+    return NextResponse.json({ error: "Failed to fetch movie" }, { status: 500 })
   }
 }

@@ -1,17 +1,29 @@
-import { NextResponse } from "next/server"
-import { tmdbApi } from "@/lib/tmdb"
+import { type NextRequest, NextResponse } from "next/server"
+import { mockMovies } from "@/lib/mock-data"
 
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url)
-  const query = searchParams.get("query")
-
-  if (!query) {
-    return NextResponse.json({ error: "Query parameter is required" }, { status: 400 })
-  }
-
+export async function GET(request: NextRequest) {
   try {
-    const movies = await tmdbApi.searchMovies(query)
-    return NextResponse.json(movies)
+    const { searchParams } = new URL(request.url)
+    const query = searchParams.get("query")?.toLowerCase() || ""
+
+    if (!query) {
+      return NextResponse.json({
+        results: [],
+        total_pages: 0,
+        total_results: 0,
+      })
+    }
+
+    // Filter movies based on title or overview
+    const filteredMovies = mockMovies.filter(
+      (movie) => movie.title.toLowerCase().includes(query) || movie.overview.toLowerCase().includes(query),
+    )
+
+    return NextResponse.json({
+      results: filteredMovies,
+      total_pages: 1,
+      total_results: filteredMovies.length,
+    })
   } catch (error) {
     console.error("Error searching movies:", error)
     return NextResponse.json({ error: "Failed to search movies" }, { status: 500 })
