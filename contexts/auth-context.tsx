@@ -1,45 +1,70 @@
 "use client"
 
-import type React from "react"
+import { createContext, useContext, useEffect, useState, type ReactNode } from "react"
+import { MockAuth, type AuthState } from "@/lib/auth-mock"
 
-import { createContext, useContext, useEffect, useState } from "react"
-import { useSession } from "next-auth/react"
-
-type User = {
-  id: string
-  name?: string | null
-  email?: string | null
-  image?: string | null
+interface AuthContextType extends AuthState {
+  signIn: (email: string, password: string) => Promise<{ success: boolean; error?: string }>
+  signUp: (name: string, email: string, password: string) => Promise<{ success: boolean; error?: string }>
+  signOut: () => Promise<void>
 }
 
-type AuthContextType = {
-  user: User | null
-  isLoading: boolean
-  isAuthenticated: boolean
-}
+const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
-const AuthContext = createContext<AuthContextType>({
-  user: null,
-  isLoading: true,
-  isAuthenticated: false,
-})
-
-export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const { data: session, status } = useSession()
-  const [user, setUser] = useState<User | null>(null)
+export function AuthProvider({ children }: { children: ReactNode }) {
+  const [authState, setAuthState] = useState<AuthState>({
+    user: null,
+    isAuthenticated: false,
+    isLoading: true,
+  })
 
   useEffect(() => {
-    if (session?.user) {
-      setUser(session.user as User)
-    } else {
-      setUser(null)
-    }
-  }, [session])
+    const auth = MockAuth.getInstance()
 
-  const isLoading = status === "loading"
-  const isAuthenticated = status === "authenticated"
+    // Subscribe to auth state changes
+    const unsubscribe = auth.subscribe(setAuthState)
 
-  return <AuthContext.Provider value={{ user, isLoading, isAuthenticated }}>{children}</AuthContext.Provider>
+    // Auto-login for demo
+    setTimeout(() => {
+      auth.autoLogin()
+    }, 1000)
+
+    return unsubscribe
+  }, [])
+
+  const signIn = async (email: string, password: string) => {
+    const auth = MockAuth.getInstance()
+    return auth.signIn(email, password)
+  }
+
+  const signUp = async (name: string, email: string, password: string) => {
+    const auth = MockAuth.getInstance()
+    return auth.signUp(name, email, password)
+  }
+
+  const signOut = async () => {
+    const auth = MockAuth.getInstance()
+    return auth.signOut()
+  }
+
+  return (
+    <AuthContext.Provider
+      value={{
+        ...authState,
+        signIn,
+        signUp,
+        signOut,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  )
 }
 
-export const useAuth = () => useContext(AuthContext)
+export function useAuth() {
+  const context = useContext(AuthContext)
+  if (context === undefined) {
+    throw new Error("useAuth must be used within an AuthProvider")
+  }
+  return context
+}
