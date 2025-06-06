@@ -1,12 +1,14 @@
 {
-  "buildCommand": "prisma generate && next build",
-  "installCommand": "npm install",
-  "env": {
-    "PRISMA_GENERATE_SKIP_AUTOINSTALL": "true"
-  },
+  "buildCommand": "npm install --legacy-peer-deps && npm run vercel-build",
+  "installCommand": "npm install --legacy-peer-deps",
+  "framework": "nextjs",
+  "regions": ["iad1"],
   "functions": {
     "app/api/**/*.ts": {
       "maxDuration": 30
     }
+  },
+  "env": {
+    "SKIP_ENV_VALIDATION": "1"
   }
 }
